@@ -1,6 +1,8 @@
 import { ItemView, WorkspaceLeaf, TFile, debounce, MarkdownView, Editor, Debouncer } from "obsidian";
+import { EditorView } from "@codemirror/view";
 import { parseLine, InkLine } from "./parser";
 import { t } from "./i18n";
+import { getScrollEffect } from "./settings";
 
 export const VIEW_TYPE_OUTLINE = "ink-outline";
 
@@ -29,7 +31,9 @@ export class InkOutlineView extends ItemView {
   async onOpen() {
     this.refresh();
 
-    this.registerEvent(this.app.workspace.on("active-leaf-change", () => {
+    this.registerEvent(this.app.workspace.on("active-leaf-change", (leaf) => {
+        // Ignore focus changes caused by clicking inside this outline panel
+        if (leaf?.view === this) return;
         this.refresh();
     }));
 
@@ -178,12 +182,31 @@ export class InkOutlineView extends ItemView {
   }
 
   onNodeClick(node: OutlineNode) {
-      const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-      if (view && view.file === this.currentFile) {
-          view.editor.setCursor({ line: node.line, ch: 0 });
-          view.editor.focus();
-          // Highlight line briefly?
-          // Not easy without plugins, but setting cursor is enough.
+      if (!this.currentFile) return;
+
+      // Find the leaf showing currentFile (outline may have stolen focus)
+      let targetLeaf: WorkspaceLeaf | null = null;
+      this.app.workspace.iterateAllLeaves((leaf) => {
+          const view = leaf.view;
+          if (view instanceof MarkdownView && view.file === this.currentFile) {
+              targetLeaf = leaf;
+          }
+      });
+      if (!targetLeaf) return;
+
+      const view = (targetLeaf as WorkspaceLeaf).view as MarkdownView;
+      this.app.workspace.setActiveLeaf(targetLeaf, { focus: true });
+      view.editor.setCursor({ line: node.line, ch: 0 });
+
+      const cmView = (view.editor as any).cm as EditorView | undefined;
+      const pos = view.editor.posToOffset({ line: node.line, ch: 0 });
+      if (cmView) {
+          cmView.dispatch({ effects: getScrollEffect(pos, cmView) });
+      } else {
+          view.editor.scrollIntoView(
+              { from: { line: node.line, ch: 0 }, to: { line: node.line, ch: 0 } },
+              true
+          );
       }
   }
 }

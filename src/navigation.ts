@@ -1,5 +1,6 @@
 import { EditorView } from "@codemirror/view";
 import { findDefinition } from "./navigation.logic";
+import { getScrollEffect } from "./settings";
 
 export const inkNavigation = EditorView.domEventHandlers({
   mousedown(event, view) {
@@ -45,12 +46,10 @@ export const inkNavigation = EditorView.domEventHandlers({
       event.preventDefault();
       event.stopPropagation();
 
+      const targetPos = doc.line(bestLine + 1).from;
       view.dispatch({
-        selection: { anchor: doc.line(bestLine + 1).from },
-        effects: EditorView.scrollIntoView(doc.line(bestLine + 1).from, {
-          y: "start",
-          yMargin: view.dom.clientHeight / 4,
-        }),
+        selection: { anchor: targetPos },
+        effects: getScrollEffect(targetPos, view),
         userEvent: "select.pointer",
       });
     }
