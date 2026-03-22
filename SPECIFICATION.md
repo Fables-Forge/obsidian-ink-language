@@ -4,11 +4,11 @@
 
 An Obsidian community plugin that brings first-class support for **inkle's Ink scripting language** (`.ink` files) into Obsidian. The goal is to give narrative designers and writers a comfortable authoring experience without leaving Obsidian — syntax highlighting, Ctrl+Click navigation, slash-command snippet insertion, command palette actions, a structural outline panel, and configurable editor themes.
 
-**Out of scope:** Story playback/preview (the existing "Ink Player" plugin covers that).
+**Out of scope:** Story playback/preview (the existing "[Ink Player](https://github.com/uglyboy-tl/obsidian-ink-player)" plugin covers that).
 
 ## Inspiration & Credits
 
-This plugin is heavily inspired by **[Inky](https://github.com/inkle/inky)**, inkle's official Ink editor. The two-theme system (Normal / Focus), the outline panel structure, and the overall UX philosophy directly reference Inky's design. Ink is created by [inkle](https://www.inklestudios.com/).
+This plugin is heavily inspired by **[Inky](https://github.com/inkle/inky)**, inkle's official Ink editor. The two-theme system (Normal / Focus), the outline panel structure, and the overall UX philosophy directly reference Inky's design. Inky and Ink are created by [inkle](https://www.inklestudios.com/).
 
 ## References
 

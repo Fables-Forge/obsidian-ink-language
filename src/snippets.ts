@@ -10,7 +10,7 @@ import {
 import { t } from "./i18n";
 import { TranslationKeys } from "./i18n/types";
 
-interface InkSnippet {
+export interface InkSnippet {
   nameKey: keyof TranslationKeys;
   descKey: keyof TranslationKeys;
   catKey: keyof TranslationKeys;
@@ -18,7 +18,7 @@ interface InkSnippet {
   cursorOffset?: number; // Defaults to end if undefined
 }
 
-const SNIPPETS: InkSnippet[] = [
+export const SNIPPETS: InkSnippet[] = [
   // Structure
   { nameKey: "snippet.knot.name", descKey: "snippet.knot.desc", catKey: "cat.structure", ink: "=== knot_name ===\n", cursorOffset: 4 },
   { nameKey: "snippet.stitch.name", descKey: "snippet.stitch.desc", catKey: "cat.structure", ink: "= stitch_name\n", cursorOffset: 2 },

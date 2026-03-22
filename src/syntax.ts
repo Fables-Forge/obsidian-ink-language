@@ -8,7 +8,7 @@ import {
 import { RangeSetBuilder } from "@codemirror/state";
 
 // Match definition
-interface InkToken {
+export interface InkToken {
   from: number;
   to: number;
   className: string;
@@ -23,7 +23,7 @@ interface InkToken {
 // 3: Comments
 // 4: TODO (inside comments)
 
-const RULES: { regex: RegExp; handler: (match: RegExpExecArray, from: number) => InkToken[] }[] = [
+export const RULES: { regex: RegExp; handler: (match: RegExpExecArray, from: number) => InkToken[] }[] = [
   // Knot header: === name ===
   {
     regex: /^\s*(={2,}\s*)(\w+)(\s*={0,}\s*$)/,

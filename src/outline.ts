@@ -6,7 +6,7 @@ import { getScrollEffect } from "./settings";
 
 export const VIEW_TYPE_OUTLINE = "ink-outline";
 
-interface OutlineNode {
+export interface OutlineNode {
   type: InkLine["type"];
   name: string;
   line: number;
