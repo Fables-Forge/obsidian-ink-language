@@ -88,4 +88,109 @@ describe("parseLine — choice", () => {
     const r = parseLine("* choice text", 0);
     assert.equal(r.type, "choice");
   });
+
+  test("** nested choice", () => {
+    assert.equal(parseLine("** deeper", 0).type, "choice");
+  });
+
+  test("+ sticky choice", () => {
+    assert.equal(parseLine("+ sticky", 0).type, "choice");
+  });
+
+  test("++ double sticky", () => {
+    assert.equal(parseLine("++ double", 0).type, "choice");
+  });
+});
+
+describe("parseLine — divert variants", () => {
+  test("-> END", () => {
+    assert.equal(parseLine("-> END", 0).type, "divert");
+  });
+
+  test("<- thread", () => {
+    assert.equal(parseLine("<- threadName", 0).type, "divert");
+  });
+
+  test("->-> tunnel return", () => {
+    // regex alternation (->|->->|<-): -> matches first, so ->-> still → divert
+    assert.equal(parseLine("->->", 0).type, "divert");
+  });
+});
+
+describe("parseLine — EXTERNAL", () => {
+  test("EXTERNAL myFunc", () => {
+    const r = parseLine("EXTERNAL myFunc", 0);
+    assert.equal(r.type, "external");
+    assert.equal(r.name, "myFunc");
+  });
+
+  test("  EXTERNAL myFunc (leading whitespace)", () => {
+    const r = parseLine("  EXTERNAL myFunc", 0);
+    assert.equal(r.type, "external");
+    assert.equal(r.name, "myFunc");
+  });
+
+  test("EXTERNAL myFunc(a, b) — name is word before paren", () => {
+    const r = parseLine("EXTERNAL myFunc(a, b)", 0);
+    assert.equal(r.type, "external");
+    assert.equal(r.name, "myFunc");
+  });
+});
+
+describe("parseLine — INCLUDE", () => {
+  test("INCLUDE other.ink", () => {
+    const r = parseLine("INCLUDE other.ink", 0);
+    assert.equal(r.type, "include");
+    assert.equal(r.name, undefined);
+  });
+
+  test("  INCLUDE path/to/file.ink (leading whitespace)", () => {
+    assert.equal(parseLine("  INCLUDE path/to/file.ink", 0).type, "include");
+  });
+});
+
+describe("parseLine — TEMP and LIST", () => {
+  test("TEMP myVar = 0", () => {
+    assert.equal(parseLine("TEMP myVar = 0", 0).type, "temp");
+  });
+
+  test("LIST myList = a, b — loosely mapped to var", () => {
+    // Intentional: LIST is mapped to "var" type in parser (see comment in source)
+    assert.equal(parseLine("LIST myList = a, b", 0).type, "var");
+  });
+});
+
+describe("parseLine — comment and TODO", () => {
+  test("// regular comment", () => {
+    assert.equal(parseLine("// regular comment", 0).type, "comment");
+  });
+
+  test("// TODO: something", () => {
+    assert.equal(parseLine("// TODO: something", 0).type, "todo");
+  });
+
+  test("//TODO no space — still todo (regex allows \\s*)", () => {
+    assert.equal(parseLine("//TODO no space", 0).type, "todo");
+  });
+
+  test("// TODOS plural — not todo (word boundary after TODO)", () => {
+    assert.equal(parseLine("// TODOS: plural", 0).type, "comment");
+  });
+});
+
+describe("parseLine — edge cases", () => {
+  test("empty string → text", () => {
+    assert.equal(parseLine("", 0).type, "text");
+  });
+
+  test("plain prose → text", () => {
+    assert.equal(parseLine("She walked into the room.", 0).type, "text");
+  });
+
+  test("=name without space → text (stitch requires '= name' with space)", () => {
+    // stitch regex: /^\s*(=\s+)(\w+)/ — space required after =
+    // knot regex:   /^\s*(={2,}\s*)(\w+)/ — needs 2+ equals
+    // so =name matches neither → text
+    assert.equal(parseLine("=name", 0).type, "text");
+  });
 });

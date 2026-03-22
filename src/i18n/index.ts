@@ -1,6 +1,6 @@
-import { en } from "./en";
-import { pl } from "./pl";
-import { TranslationKeys } from "./types";
+import { en } from "./en.ts";
+import { pl } from "./pl.ts";
+import type { TranslationKeys } from "./types.ts";
 
 const locales: Record<string, TranslationKeys> = { en, pl };
 let active: TranslationKeys = en;

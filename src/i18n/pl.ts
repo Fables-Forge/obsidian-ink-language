@@ -1,4 +1,4 @@
-import { TranslationKeys } from "./types";
+import type { TranslationKeys } from "./types.ts";
 
 export const pl: TranslationKeys = {
   "cmd.insert-knot":          "Ink: Dodaj węzeł",

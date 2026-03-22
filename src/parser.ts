@@ -59,10 +59,14 @@ export function parseLine(text: string, lineNumber: number): InkLine {
     }
 
     // Var/Const/Temp/List
-    if (/^\s*VAR\b/.test(text)) { result.type = "var"; return result; }
-    if (/^\s*CONST\b/.test(text)) { result.type = "const"; return result; }
-    if (/^\s*TEMP\b/.test(text)) { result.type = "temp"; return result; }
-    if (/^\s*LIST\b/.test(text)) { result.type = "var"; return result; } // loosely mapping LIST to var for this purpose
+    const varMatch = text.match(/^\s*VAR\s+(\w+)/);
+    if (varMatch) { result.type = "var"; result.name = varMatch[1]; return result; }
+    const constMatch = text.match(/^\s*CONST\s+(\w+)/);
+    if (constMatch) { result.type = "const"; result.name = constMatch[1]; return result; }
+    const tempMatch = text.match(/^\s*TEMP\s+(\w+)/);
+    if (tempMatch) { result.type = "temp"; result.name = tempMatch[1]; return result; }
+    const listMatch = text.match(/^\s*LIST\s+(\w+)/);
+    if (listMatch) { result.type = "var"; result.name = listMatch[1]; return result; } // loosely mapping LIST to var for this purpose
 
     // Choice
     if (/^\s*(\*+|\+\+?)(\s*)/.test(text)) {
