@@ -1,0 +1,101 @@
+export interface TranslationKeys {
+  // ── Command palette ──────────────────────
+  "cmd.insert-knot": string;
+  "cmd.insert-stitch": string;
+  "cmd.insert-choice": string;
+  "cmd.insert-sticky-choice": string;
+  "cmd.insert-divert": string;
+  "cmd.insert-var": string;
+  "cmd.insert-conditional": string;
+  "cmd.wrap-logic": string;
+  "cmd.toggle-outline": string;
+
+  // ── Snippet names ────────────────────────
+  "snippet.knot.name": string;
+  "snippet.knot.desc": string;
+  "snippet.stitch.name": string;
+  "snippet.stitch.desc": string;
+  "snippet.function.name": string;
+  "snippet.function.desc": string;
+  "snippet.include.name": string;
+  "snippet.include.desc": string;
+  "snippet.choice.name": string;
+  "snippet.choice.desc": string;
+  "snippet.sticky-choice.name": string;
+  "snippet.sticky-choice.desc": string;
+  "snippet.choice-suppress.name": string;
+  "snippet.choice-suppress.desc": string;
+  "snippet.labelled-choice.name": string;
+  "snippet.labelled-choice.desc": string;
+  "snippet.conditional-choice.name": string;
+  "snippet.conditional-choice.desc": string;
+  "snippet.fallback-choice.name": string;
+  "snippet.fallback-choice.desc": string;
+  "snippet.divert.name": string;
+  "snippet.divert.desc": string;
+  "snippet.divert-end.name": string;
+  "snippet.divert-end.desc": string;
+  "snippet.divert-done.name": string;
+  "snippet.divert-done.desc": string;
+  "snippet.tunnel.name": string;
+  "snippet.tunnel.desc": string;
+  "snippet.tunnel-return.name": string;
+  "snippet.tunnel-return.desc": string;
+  "snippet.thread.name": string;
+  "snippet.thread.desc": string;
+  "snippet.gather.name": string;
+  "snippet.gather.desc": string;
+  "snippet.labelled-gather.name": string;
+  "snippet.labelled-gather.desc": string;
+  "snippet.glue.name": string;
+  "snippet.glue.desc": string;
+  "snippet.var.name": string;
+  "snippet.var.desc": string;
+  "snippet.const.name": string;
+  "snippet.const.desc": string;
+  "snippet.temp.name": string;
+  "snippet.temp.desc": string;
+  "snippet.assignment.name": string;
+  "snippet.assignment.desc": string;
+  "snippet.if-else.name": string;
+  "snippet.if-else.desc": string;
+  "snippet.switch.name": string;
+  "snippet.switch.desc": string;
+  "snippet.external.name": string;
+  "snippet.external.desc": string;
+  "snippet.list.name": string;
+  "snippet.list.desc": string;
+  "snippet.sequence.name": string;
+  "snippet.sequence.desc": string;
+  "snippet.cycle.name": string;
+  "snippet.cycle.desc": string;
+  "snippet.shuffle.name": string;
+  "snippet.shuffle.desc": string;
+  "snippet.once.name": string;
+  "snippet.once.desc": string;
+  "snippet.alternatives.name": string;
+  "snippet.alternatives.desc": string;
+  "snippet.tag.name": string;
+  "snippet.tag.desc": string;
+  "snippet.line-comment.name": string;
+  "snippet.line-comment.desc": string;
+  "snippet.block-comment.name": string;
+  "snippet.block-comment.desc": string;
+  "snippet.todo.name": string;
+  "snippet.todo.desc": string;
+
+  // ── Snippet categories ───────────────────
+  "cat.structure": string;
+  "cat.choices": string;
+  "cat.flow": string;
+  "cat.logic": string;
+  "cat.varying-text": string;
+  "cat.tags": string;
+
+  // ── Outline panel ────────────────────────
+  "outline.title": string;
+  "outline.knots": string;
+  "outline.functions": string;
+  "outline.externals": string;
+  "outline.empty": string;
+}

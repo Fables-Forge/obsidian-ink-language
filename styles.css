@@ -1,0 +1,250 @@
+/* Syntax Highlighting */
+
+.ink-knot-marker {
+  color: var(--text-faint);
+  font-weight: bold;
+}
+
+.ink-knot-name {
+  color: var(--color-yellow);
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.ink-keyword {
+  color: var(--color-red);
+  font-weight: bold;
+}
+
+.ink-fn-name {
+  color: var(--color-cyan);
+  font-weight: bold;
+}
+
+.ink-params {
+  color: var(--text-muted);
+}
+
+.ink-stitch-marker {
+  color: var(--text-faint);
+}
+
+.ink-stitch-name {
+  color: var(--color-orange);
+  font-weight: 600;
+}
+
+.ink-choice-bullet {
+  color: var(--color-green);
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.ink-label {
+  color: var(--color-purple);
+  font-style: italic;
+}
+
+.ink-choice-suppress {
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.ink-gather {
+  color: var(--color-blue);
+  font-weight: bold;
+}
+
+.ink-divert-arrow {
+  color: var(--color-blue);
+  font-weight: bold;
+}
+
+.ink-divert-target {
+  color: var(--color-blue);
+  text-decoration: underline dotted;
+}
+
+.ink-tunnel {
+  color: var(--color-purple);
+  font-weight: bold;
+}
+
+.ink-thread-arrow {
+  color: var(--color-pink);
+  font-weight: bold;
+}
+
+.ink-thread-target {
+  color: var(--color-pink);
+  text-decoration: underline;
+}
+
+.ink-glue {
+  color: var(--color-orange);
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+.ink-variable {
+  color: var(--color-cyan);
+}
+
+.ink-tilde {
+  color: var(--color-red);
+  font-weight: bold;
+}
+
+.ink-logic {
+  color: var(--color-purple);
+}
+
+.ink-string {
+  color: var(--color-green);
+}
+
+.ink-tag {
+  color: var(--text-muted);
+  background-color: var(--background-modifier-hover);
+  border-radius: 4px;
+  padding: 0 4px;
+  font-size: 0.9em;
+}
+
+.ink-comment {
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+.ink-todo {
+  color: var(--color-orange);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.ink-include-path {
+  color: var(--color-cyan);
+  text-decoration: underline dotted;
+}
+
+
+/* Slash Commands (EditorSuggest) */
+
+.ink-snippet-suggestion {
+  padding: 4px 8px;
+}
+
+.ink-snippet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.ink-snippet-name {
+  font-weight: bold;
+  color: var(--text-normal);
+}
+
+.ink-snippet-category {
+  font-size: 0.8em;
+  background-color: var(--background-modifier-border);
+  color: var(--text-muted);
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.ink-snippet-desc {
+  color: var(--text-muted);
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* Outline Panel */
+
+.ink-outline-empty {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.ink-outline-section-header {
+  padding: 8px 12px;
+  background-color: var(--background-secondary);
+  border-bottom: 1px solid var(--background-modifier-border);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 0.05em;
+}
+
+.ink-outline-list {
+  padding: 4px 0;
+}
+
+.ink-outline-item {
+  cursor: pointer;
+}
+
+.ink-outline-item-content {
+  padding: 4px 12px 4px 24px; /* Indent slightly */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ink-outline-item-content:hover {
+  background-color: var(--background-modifier-hover);
+}
+
+.ink-outline-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  background-color: var(--text-muted); /* Fallback circle */
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ink-outline-icon.knot {
+  background-color: var(--color-yellow);
+  border-radius: 2px; /* Square-ish */
+}
+
+.ink-outline-icon.stitch {
+  background-color: var(--color-orange);
+  width: 10px;
+  height: 10px;
+  margin-left: 2px;
+}
+
+.ink-outline-icon.function {
+  background-color: var(--color-cyan);
+  border-radius: 4px;
+}
+
+.ink-outline-icon.external {
+  background-color: var(--color-purple);
+}
+
+.ink-outline-name {
+  color: var(--text-normal);
+  font-size: 0.95em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ink-outline-children {
+  margin-left: 12px;
+  border-left: 1px solid var(--background-modifier-border);
+}
+
+.ink-outline-children .ink-outline-item-content {
+  padding-left: 12px; /* Less padding in children to account for margin */
+}

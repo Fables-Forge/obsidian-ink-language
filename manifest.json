@@ -1,0 +1,9 @@
+{
+  "id": "ink-language",
+  "name": "Ink Language",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Syntax highlighting, slash commands, and outline panel for inkle's Ink scripting language (.ink files)",
+  "author": "Fables Forge",
+  "isDesktopOnly": false
+}
