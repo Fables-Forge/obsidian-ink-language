@@ -1,12 +1,12 @@
 import { EditorView } from "@codemirror/view";
+import { Platform } from "obsidian";
 import { findDefinition } from "./navigation.logic";
 import { getScrollEffect } from "./settings";
 
 export const inkNavigation = EditorView.domEventHandlers({
   mousedown(event, view) {
     // 1. Check modifier (Ctrl on Win/Linux, Meta on Mac)
-    const isMod =
-      navigator.platform.indexOf("Mac") > -1 ? event.metaKey : event.ctrlKey;
+    const isMod = Platform.isMacOS ? event.metaKey : event.ctrlKey;
     if (!isMod) return;
 
     // 2. Get click position

@@ -72,7 +72,7 @@ export default class InkPlugin extends Plugin {
       this.app.workspace.on("active-leaf-change", forceSourceMode)
     );
     // Also handle files already open when plugin loads
-    forceSourceMode(this.app.workspace.activeLeaf);
+    forceSourceMode(this.app.workspace.getMostRecentLeaf());
 
     // 3. Slash Commands
     this.registerEditorSuggest(new InkSuggest(this.app));
@@ -220,7 +220,7 @@ class InkSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Editor theme")
-      .setDesc("Normal: syntax highlighted. Focus: only narrative text is bright, structure recedes.")
+      .setDesc("Normal: full syntax highlighting. Focus: only narrative text is bright, structure recedes.")
       .addDropdown((dd) =>
         dd
           .addOption("normal", "Normal")
@@ -234,7 +234,7 @@ class InkSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Navigation scroll position")
-      .setDesc("Where to position the target line after Ctrl+Click or Outline navigation.")
+      .setDesc("Where the target line lands after Ctrl+Click or outline navigation.")
       .addDropdown((dd) =>
         dd
           .addOption("top",     "Top")

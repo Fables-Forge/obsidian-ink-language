@@ -242,15 +242,12 @@ export const inkSyntax = ViewPlugin.fromClass(
     buildDecorations(view: EditorView): DecorationSet {
       // 1. Check file extension
       // In Obsidian, we might check view.state or workspace.
-      // But ViewPlugin is generic. We'll trust the caller to only add this extension
-      // where appropriate, OR we assume we are in an .ink file if this plugin is loaded.
-      // The spec says: "The highlighter MUST only activate when the current file has .ink extension."
-      // We can check via `view.state.field(...)` if we had file context,
-      // but simpler is to assume the plugin main.ts handles registration scope.
-      // However, Spec 2.1 says "Check via this.app.workspace.getActiveFile()?.extension".
-      // We don't have access to `this.app` easily here unless we pass it or import it.
-      // But `window.app` might exist in Obsidian environment.
-      // Let's assume we proceed. If we want to be strict, we'd need to bind it.
+      // ViewPlugin is generic — file-extension scoping is handled by main.ts
+      // which registers this extension only for the markdown editor (ink files
+      // are registered as markdown via registerExtensions). The editorAttributes
+      // extension adds the `ink-editor` class only when editorInfoField confirms
+      // the file has a .ink extension, so highlighting runs for all editors but
+      // only produces visible classes on .ink files.
 
       const builder = new RangeSetBuilder<Decoration>();
       const visibleRanges = view.visibleRanges;
