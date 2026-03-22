@@ -1,6 +1,6 @@
 {
   "name": "obsidian-ink-language",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Syntax highlighting, slash commands, and outline panel for inkle's Ink scripting language (.ink files)",
   "main": "main.js",
   "type": "module",
