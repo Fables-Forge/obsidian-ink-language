@@ -70,6 +70,14 @@ export function parseLine(text: string, lineNumber: number): InkLine {
         return result;
     }
 
+    // Named gather / label: - (name) or -- (name) or - - (name)
+    const labelMatch = text.match(/^\s*(-\s*)+\((\w+)\)/);
+    if (labelMatch) {
+        result.type = "gather";
+        result.name = labelMatch[2];
+        return result;
+    }
+
     // Gather (start of line)
     // - (space) ...
     if (/^\s*(-+)(\s+)/.test(text)) {
