@@ -37,18 +37,18 @@ export class InkOutlineView extends ItemView {
         this.refresh();
     }));
 
-    this.registerEvent(this.app.workspace.on("editor-change", (editor, info) => {
+    this.registerEvent(this.app.workspace.on("editor-change", (_editor, info) => {
         if (info.file?.extension === "ink") {
             this.debouncedRefresh();
         }
     }));
   }
 
-  async onClose() {
+  onClose(): void {
     // Nothing to clean up manually
   }
 
-  async refresh() {
+  refresh() {
     const view = this.app.workspace.getActiveViewOfType(MarkdownView);
     if (!view || view.file?.extension !== "ink") {
       this.currentFile = null;
@@ -146,29 +146,7 @@ export class InkOutlineView extends ItemView {
     const item = container.createEl("div", { cls: "ink-outline-item" });
     const line = item.createEl("div", { cls: "ink-outline-item-content" });
 
-    // Icon
-    let icon = "circle";
-    if (node.type === "knot") icon = "bookmark"; // or git-branch
-    if (node.type === "stitch") icon = "corner-down-right";
-    if (node.type === "function") icon = "function-square";
-    if (node.type === "external") icon = "plug";
-
-    // We can use Lucide icons if available, but Obsidian exposes `setIcon`
-    // item.createSpan({ cls: "ink-outline-icon" }); ...
-    // For simplicity, just text or a unicode char or CSS class.
-    // Obsidian's setIcon:
-    // import { setIcon } from "obsidian";
-    // setIcon(iconEl, iconName);
-
-    // I'll skip setIcon import and assume CSS or simple text for now to avoid boilerplate,
-    // or better, I will assume `setIcon` is globally available or just use classes.
-    // Actually, I can render a span and add class.
-
-    const iconSpan = line.createSpan({ cls: `ink-outline-icon ${node.type}` });
-    // If I wanted real icons I'd need the `setIcon` function.
-    // Let's rely on CSS shapes or unicode for MVP if I can't import setIcon easily.
-    // Wait, I can import setIcon from obsidian.
-
+    line.createSpan({ cls: `ink-outline-icon ${node.type}` });
     line.createSpan({ text: node.name, cls: "ink-outline-name" });
 
     line.addEventListener("click", () => {
@@ -198,7 +176,7 @@ export class InkOutlineView extends ItemView {
       this.app.workspace.setActiveLeaf(targetLeaf, { focus: true });
       view.editor.setCursor({ line: node.line, ch: 0 });
 
-      const cmView = (view.editor as any).cm as EditorView | undefined;
+      const cmView = (view.editor as unknown as { cm?: EditorView }).cm;
       const pos = view.editor.posToOffset({ line: node.line, ch: 0 });
       if (cmView) {
           cmView.dispatch({ effects: getScrollEffect(pos, cmView) });

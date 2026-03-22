@@ -72,7 +72,7 @@ export default class InkPlugin extends Plugin {
       this.app.workspace.on("active-leaf-change", forceSourceMode)
     );
     // Also handle files already open when plugin loads
-    forceSourceMode(this.app.workspace.getMostRecentLeaf());
+    void forceSourceMode(this.app.workspace.getMostRecentLeaf());
 
     // 3. Slash Commands
     this.registerEditorSuggest(new InkSuggest(this.app));
@@ -195,7 +195,7 @@ export default class InkPlugin extends Plugin {
     this.app.workspace.iterateAllLeaves((leaf) => {
       const view = leaf.view;
       if (view instanceof MarkdownView && view.file?.extension === "ink") {
-        const cm = (view.editor as any).cm as EditorView | undefined;
+        const cm = (view.editor as unknown as { cm?: EditorView }).cm;
         cm?.dispatch({ effects: setThemeEffect.of(this.settings.editorTheme) });
       }
     });

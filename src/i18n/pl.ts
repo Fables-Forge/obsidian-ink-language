@@ -92,7 +92,7 @@ export const pl: TranslationKeys = {
   "cat.varying-text": "Tekst zmienny",
   "cat.tags":         "Tagi",
 
-  "outline.title":     "Zarys Ink",
+  "outline.title":     "Zarys ink",
   "outline.knots":     "Węzły",
   "outline.functions": "Funkcje",
   "outline.externals": "Zewnętrzne",

@@ -302,7 +302,6 @@ export const inkSyntax = ViewPlugin.fromClass(
       for (let i = 0; i < sortedPoints.length - 1; i++) {
           const start = sortedPoints[i];
           const end = sortedPoints[i+1];
-          const mid = (start + end) / 2;
 
           // Find best token covering this segment
           // "Best" = highest priority, then... shortest length? Spec says "shorter".
