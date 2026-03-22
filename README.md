@@ -6,13 +6,15 @@ An editor plugin for [inkle's Ink](https://www.inklestudios.com/ink/) scripting 
 
 ## Overview
 
-An Obsidian community plugin that brings first-class support for **inkle's Ink scripting language** (`.ink` files) into Obsidian. The goal is to give narrative designers and writers a comfortable authoring experience without leaving Obsidian — syntax highlighting, Ctrl+Click navigation, slash-command snippet insertion, command palette actions, a structural outline panel, and configurable editor themes.
+An Obsidian community plugin that brings first-class support for **inkle's Ink scripting language** (`.ink` files) into Obsidian. The goal is to give narrative designers and writers a comfortable authoring experience without leaving Obsidian — syntax highlighting, Ctrl+Click navigation, slash-command snippet insertion, command palette actions, a structural outline panel, and configurable editor themes. You can also include Obsidian links in your Ink comments - something that's not possible with the official editor.
 
-**Out of scope:** Story playback/preview (the existing [**Ink Player**](https://github.com/uglyboy-tl/obsidian-ink-player) plugin covers that).
+We built it for ourselves - all of our project notes and storyline live in a shared Obsidian vault. Now we're sharing it with the community.
+
+**Out of scope:** Story playback/preview (the existing [**Ink Player**](https://github.com/uglyboy-tl/obsidian-ink-player) plugin covers that and it plays nicely with our plugin - the two of them make a perfect duo).
 
 ## Inspiration & Credits
 
-This plugin is heavily inspired by **[Inky](https://github.com/inkle/inky)**, inkle's official Ink editor. The two-theme system (Normal / Focus), the outline panel structure, and the overall UX philosophy directly reference Inky's design. Inky and Ink are created by [inkle](https://www.inklestudios.com/).
+This plugin is heavily inspired by **[Inky](https://github.com/inkle/inky)**, inkle's official Ink editor. The two-theme system (Normal / Focus), the outline panel structure, and the overall UX philosophy directly reference Inky's design. Inky and Ink are amazing software created by [inkle](https://www.inklestudios.com/).
 
 ## Features
 
@@ -106,9 +108,10 @@ Open **Settings → Community Plugins → Ink Language**.
 This plugin supports the full Ink syntax. For language documentation see the [official Ink guide](https://github.com/inkle/ink/blob/master/Documentation/WritingWithInk.md).
 
 ---
+
 ## AI Disclosure
 
-This plugin was built using AI-assisted specs-driven development with Claude and Gemini. We use AI to build tools and automations for our creatives, so they can spend more time crafting original stories.
+This plugin was built using AI-assisted specs-driven development with Claude and Gemini. We use AI to build tools and automations for our narrative team, so they can spend more time crafting original stories.
 
 ---
 
