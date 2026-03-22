@@ -10,6 +10,7 @@ export const en: TranslationKeys = {
   "cmd.insert-conditional":   "Ink: Insert Conditional",
   "cmd.wrap-logic":           "Ink: Wrap in Logic Braces",
   "cmd.toggle-outline":       "Ink: Toggle Outline",
+  "cmd.toggle-focus":         "Ink: Toggle Focus Mode",
 
   "snippet.knot.name":              "Knot",
   "snippet.knot.desc":              "New story section (=== name ===)",

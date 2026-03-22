@@ -10,6 +10,7 @@ export const pl: TranslationKeys = {
   "cmd.insert-conditional":   "Ink: Dodaj warunek",
   "cmd.wrap-logic":           "Ink: Otocz klamrami logiki",
   "cmd.toggle-outline":       "Ink: Przełącz zarys",
+  "cmd.toggle-focus":         "Ink: Przełącz tryb skupienia",
 
   "snippet.knot.name":              "Węzeł",
   "snippet.knot.desc":              "Nowa sekcja fabuły (=== nazwa ===)",

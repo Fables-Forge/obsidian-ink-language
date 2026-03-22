@@ -8,13 +8,25 @@ import {
   App,
   editorInfoField,
 } from "obsidian";
-import { InkSettings, DEFAULT_SETTINGS, applySettings } from "./settings";
+import { InkSettings, DEFAULT_SETTINGS, applySettings, currentSettings, EditorTheme } from "./settings";
 import { EditorView } from "@codemirror/view";
+import { StateEffect, StateField } from "@codemirror/state";
 import { inkSyntax } from "./syntax";
 import { inkNavigation } from "./navigation";
 import { InkSuggest } from "./snippets";
 import { InkOutlineView, VIEW_TYPE_OUTLINE } from "./outline";
 import { initLocale, t } from "./i18n";
+
+// StateEffect + StateField so the theme class is part of CM state,
+// not a manual DOM change that gets overwritten on next state update.
+const setThemeEffect = StateEffect.define<EditorTheme>();
+const themeField = StateField.define<EditorTheme>({
+  create: () => currentSettings.editorTheme,
+  update: (value, tr) => {
+    for (const e of tr.effects) if (e.is(setThemeEffect)) return e.value;
+    return value;
+  },
+});
 
 export default class InkPlugin extends Plugin {
   settings: InkSettings = { ...DEFAULT_SETTINGS };
@@ -31,16 +43,17 @@ export default class InkPlugin extends Plugin {
     // 2. Syntax Highlighting
     this.registerEditorExtension(inkSyntax);
 
-    // 2.1 Monospace Font for Ink files
-    this.registerEditorExtension(
-      EditorView.editorAttributes.compute([editorInfoField], (state) => {
+    // 2.1 Monospace Font + theme class for Ink files
+    this.registerEditorExtension([
+      themeField,
+      EditorView.editorAttributes.compute([editorInfoField, themeField], (state) => {
         const file = state.field(editorInfoField)?.file;
         if (file && file.extension === "ink") {
-          return { class: "ink-editor" };
+          return { class: `ink-editor ink-theme-${state.field(themeField)}` };
         }
         return {};
       }),
-    );
+    ]);
 
     // 2.2 Navigation (Ctrl+Click)
     this.registerEditorExtension(inkNavigation);
@@ -76,6 +89,16 @@ export default class InkPlugin extends Plugin {
       name: t("cmd.toggle-outline"),
       callback: () => {
         this.toggleView();
+      },
+    });
+
+    this.addCommand({
+      id: "ink:toggle-focus-mode",
+      name: t("cmd.toggle-focus"),
+      callback: async () => {
+        this.settings.editorTheme =
+          this.settings.editorTheme === "focus" ? "normal" : "focus";
+        await this.saveSettings();
       },
     });
 
@@ -168,6 +191,14 @@ export default class InkPlugin extends Plugin {
   async saveSettings() {
     await this.saveData(this.settings);
     applySettings(this.settings);
+    // Dispatch StateEffect so CM recomputes editorAttributes immediately
+    this.app.workspace.iterateAllLeaves((leaf) => {
+      const view = leaf.view;
+      if (view instanceof MarkdownView && view.file?.extension === "ink") {
+        const cm = (view.editor as any).cm as EditorView | undefined;
+        cm?.dispatch({ effects: setThemeEffect.of(this.settings.editorTheme) });
+      }
+    });
   }
 
   onunload() {
@@ -186,6 +217,20 @@ class InkSettingTab extends PluginSettingTab {
   display() {
     const { containerEl } = this;
     containerEl.empty();
+
+    new Setting(containerEl)
+      .setName("Editor theme")
+      .setDesc("Normal: syntax highlighted. Focus: only narrative text is bright, structure recedes.")
+      .addDropdown((dd) =>
+        dd
+          .addOption("normal", "Normal")
+          .addOption("focus",  "Focus")
+          .setValue(this.plugin.settings.editorTheme)
+          .onChange(async (value) => {
+            this.plugin.settings.editorTheme = value as InkSettings["editorTheme"];
+            await this.plugin.saveSettings();
+          })
+      );
 
     new Setting(containerEl)
       .setName("Navigation scroll position")

@@ -1,250 +1,216 @@
-/* Syntax Highlighting */
+/* ══════════════════════════════════════════════════════════════
+   Ink Syntax Highlighting
+   Two themes applied via .ink-theme-normal / .ink-theme-focus
+   on the .cm-editor element.
+   ══════════════════════════════════════════════════════════════ */
 
-.ink-knot-marker {
-  color: var(--text-faint);
-  font-weight: bold;
-}
+/* ── Normal mode ───────────────────────────────────────────────
+   Uses Obsidian theme colors, toned down slightly.
+   All structural elements are colored but not aggressive.
+   ─────────────────────────────────────────────────────────── */
 
-.ink-knot-name {
-  color: var(--color-yellow);
-  font-weight: bold;
-  font-size: 1.1em;
-}
+.ink-theme-normal .ink-knot-marker   { color: var(--text-faint); }
+.ink-theme-normal .ink-knot-name     { color: var(--color-yellow); font-weight: bold; }
+.ink-theme-normal .ink-keyword       { color: var(--color-red); opacity: 0.85; }
+.ink-theme-normal .ink-fn-name       { color: var(--color-cyan); font-weight: bold; }
+.ink-theme-normal .ink-params        { color: var(--text-muted); }
 
-.ink-keyword {
-  color: var(--color-red);
-  font-weight: bold;
-}
+.ink-theme-normal .ink-stitch-marker { color: var(--text-faint); }
+.ink-theme-normal .ink-stitch-name   { color: var(--color-orange); font-weight: 600; }
 
-.ink-fn-name {
-  color: var(--color-cyan);
-  font-weight: bold;
-}
+.ink-theme-normal .ink-choice-bullet { color: var(--color-green); font-weight: bold; }
+.ink-theme-normal .ink-label         { color: var(--color-purple); font-style: italic; }
+.ink-theme-normal .ink-choice-suppress { color: var(--text-normal); font-style: normal; }
 
-.ink-params {
-  color: var(--text-muted);
-}
+.ink-theme-normal .ink-gather        { color: var(--text-faint); }
 
-.ink-stitch-marker {
-  color: var(--text-faint);
-}
+.ink-theme-normal .ink-divert-arrow  { color: var(--color-blue); }
+.ink-theme-normal .ink-divert-target { color: var(--color-blue); text-decoration: underline dotted; }
+.ink-theme-normal .ink-tunnel        { color: var(--color-purple); }
+.ink-theme-normal .ink-thread-arrow  { color: var(--color-pink); }
+.ink-theme-normal .ink-thread-target { color: var(--color-pink); text-decoration: underline dotted; }
+.ink-theme-normal .ink-glue          { color: var(--color-orange); opacity: 0.8; }
 
-.ink-stitch-name {
-  color: var(--color-orange);
-  font-weight: 600;
-}
+.ink-theme-normal .ink-variable      { color: var(--color-cyan); }
+.ink-theme-normal .ink-tilde         { color: var(--color-red); opacity: 0.85; }
+.ink-theme-normal .ink-logic         { color: var(--color-purple); }
+.ink-theme-normal .ink-string        { color: var(--color-green); }
 
-.ink-choice-bullet {
-  color: var(--color-green);
-  font-weight: bold;
-  font-size: 1.1em;
-}
+.ink-theme-normal .ink-tag           { color: var(--text-muted); background: transparent; padding: 0; font-size: inherit; }
+.ink-theme-normal .ink-comment       { color: var(--text-faint); font-style: italic; }
+.ink-theme-normal .ink-todo          { color: var(--color-orange); font-style: italic; font-weight: 600; }
+.ink-theme-normal .ink-include-path  { color: var(--color-cyan); text-decoration: underline dotted; }
 
-.ink-label {
-  color: var(--color-purple);
-  font-style: italic;
-}
+/* ── Focus mode ────────────────────────────────────────────────
+   Narrative text reads at full brightness (default, no class).
+   Everything else recedes. One accent for navigable diverts.
+   ─────────────────────────────────────────────────────────── */
 
-.ink-choice-suppress {
-  color: var(--text-muted);
-  font-style: italic;
-  opacity: 0.7;
-}
+.ink-theme-focus .ink-knot-marker    { color: var(--text-faint); }
+.ink-theme-focus .ink-knot-name      { color: var(--text-muted); font-weight: bold; }
+.ink-theme-focus .ink-keyword        { color: var(--text-faint); }
+.ink-theme-focus .ink-fn-name        { color: var(--text-muted); font-weight: bold; }
+.ink-theme-focus .ink-params         { color: var(--text-faint); }
 
-.ink-gather {
-  color: var(--color-blue);
-  font-weight: bold;
-}
+.ink-theme-focus .ink-stitch-marker  { color: var(--text-faint); }
+.ink-theme-focus .ink-stitch-name    { color: var(--text-faint); font-weight: 600; }
 
-.ink-divert-arrow {
-  color: var(--color-blue);
-  font-weight: bold;
-}
+.ink-theme-focus .ink-choice-bullet  { color: var(--text-faint); font-weight: bold; }
+.ink-theme-focus .ink-label          { color: var(--text-faint); font-style: italic; }
+.ink-theme-focus .ink-choice-suppress { color: var(--text-normal); font-style: normal; }
 
-.ink-divert-target {
-  color: var(--color-blue);
-  text-decoration: underline dotted;
-}
+.ink-theme-focus .ink-gather         { color: var(--text-faint); }
 
-.ink-tunnel {
-  color: var(--color-purple);
-  font-weight: bold;
-}
+.ink-theme-focus .ink-divert-arrow   { color: var(--text-faint); }
+.ink-theme-focus .ink-divert-target  { color: var(--text-accent); text-decoration: underline dotted; }
+.ink-theme-focus .ink-tunnel         { color: var(--text-faint); }
+.ink-theme-focus .ink-thread-arrow   { color: var(--text-faint); }
+.ink-theme-focus .ink-thread-target  { color: var(--text-accent); text-decoration: underline dotted; }
+.ink-theme-focus .ink-glue           { color: var(--text-faint); }
 
-.ink-thread-arrow {
-  color: var(--color-pink);
-  font-weight: bold;
-}
+.ink-theme-focus .ink-variable       { color: var(--text-faint); }
+.ink-theme-focus .ink-tilde          { color: var(--text-faint); font-weight: bold; }
+.ink-theme-focus .ink-logic          { color: var(--text-faint); }
+.ink-theme-focus .ink-string         { color: var(--text-muted); }
 
-.ink-thread-target {
-  color: var(--color-pink);
-  text-decoration: underline;
-}
-
-.ink-glue {
-  color: var(--color-orange);
-  font-weight: bold;
-  opacity: 0.8;
-}
-
-.ink-variable {
-  color: var(--color-cyan);
-}
-
-.ink-tilde {
-  color: var(--color-red);
-  font-weight: bold;
-}
-
-.ink-logic {
-  color: var(--color-purple);
-}
-
-.ink-string {
-  color: var(--color-green);
-}
-
-.ink-tag {
-  color: var(--text-muted);
-  background-color: var(--background-modifier-hover);
-  border-radius: 4px;
-  padding: 0 4px;
-  font-size: 0.9em;
-}
-
-.ink-comment {
-  color: var(--text-faint);
-  font-style: italic;
-}
-
-.ink-todo {
-  color: var(--color-orange);
-  font-style: italic;
-  font-weight: 600;
-}
-
-.ink-include-path {
-  color: var(--color-cyan);
-  text-decoration: underline dotted;
-}
-
+.ink-theme-focus .ink-tag            { color: var(--text-faint); background: transparent; padding: 0; font-size: inherit; }
+.ink-theme-focus .ink-comment        { color: var(--text-faint); font-style: italic; opacity: 0.6; }
+.ink-theme-focus .ink-todo           { color: var(--text-muted); font-style: italic; font-weight: 600; }
+.ink-theme-focus .ink-include-path   { color: var(--text-faint); }
 
 /* Slash Commands (EditorSuggest) */
 
 .ink-snippet-suggestion {
-  padding: 4px 8px;
+    padding: 4px 8px;
 }
 
 .ink-snippet-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
 }
 
 .ink-snippet-name {
-  font-weight: bold;
-  color: var(--text-normal);
+    font-weight: bold;
+    color: var(--text-normal);
 }
 
 .ink-snippet-category {
-  font-size: 0.8em;
-  background-color: var(--background-modifier-border);
-  color: var(--text-muted);
-  padding: 2px 6px;
-  border-radius: 10px;
+    font-size: 0.8em;
+    background-color: var(--background-modifier-border);
+    color: var(--text-muted);
+    padding: 2px 6px;
+    border-radius: 10px;
 }
 
 .ink-snippet-desc {
-  color: var(--text-muted);
-  font-size: 0.9em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    color: var(--text-muted);
+    font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
 
 /* Outline Panel */
 
 .ink-outline-empty {
-  padding: 20px;
-  text-align: center;
-  color: var(--text-muted);
+    padding: 20px;
+    text-align: center;
+    color: var(--text-muted);
 }
 
 .ink-outline-section-header {
-  padding: 8px 12px;
-  background-color: var(--background-secondary);
-  border-bottom: 1px solid var(--background-modifier-border);
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  font-size: 0.8em;
-  letter-spacing: 0.05em;
+    padding: 8px 12px;
+    background-color: var(--background-secondary);
+    border-bottom: 1px solid var(--background-modifier-border);
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 0.05em;
 }
 
 .ink-outline-list {
-  padding: 4px 0;
+    padding: 4px 0;
 }
 
 .ink-outline-item {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .ink-outline-item-content {
-  padding: 4px 12px 4px 24px; /* Indent slightly */
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    padding: 4px 12px 4px 24px; /* Indent slightly */
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .ink-outline-item-content:hover {
-  background-color: var(--background-modifier-hover);
+    background-color: var(--background-modifier-hover);
 }
 
 .ink-outline-icon {
-  width: 14px;
-  height: 14px;
-  display: inline-block;
-  background-color: var(--text-muted); /* Fallback circle */
-  border-radius: 50%;
-  flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background-color: var(--text-muted); /* Fallback circle */
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .ink-outline-icon.knot {
-  background-color: var(--color-yellow);
-  border-radius: 2px; /* Square-ish */
+    background-color: var(--color-yellow);
+    border-radius: 2px; /* Square-ish */
 }
 
 .ink-outline-icon.stitch {
-  background-color: var(--color-orange);
-  width: 10px;
-  height: 10px;
-  margin-left: 2px;
+    background-color: var(--color-orange);
+    width: 10px;
+    height: 10px;
+    margin-left: 2px;
 }
 
 .ink-outline-icon.function {
-  background-color: var(--color-cyan);
-  border-radius: 4px;
+    background-color: var(--color-cyan);
+    border-radius: 4px;
 }
 
 .ink-outline-icon.external {
-  background-color: var(--color-purple);
+    background-color: var(--color-purple);
 }
 
 .ink-outline-name {
-  color: var(--text-normal);
-  font-size: 0.95em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    color: var(--text-normal);
+    font-size: 0.95em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .ink-outline-children {
-  margin-left: 12px;
-  border-left: 1px solid var(--background-modifier-border);
+    margin-left: 12px;
+    border-left: 1px solid var(--background-modifier-border);
 }
 
-.ink-outline-children .ink-outline-item-content {
-  padding-left: 12px; /* Less padding in children to account for margin */
+/* Editor Font */
+
+.ink-editor .cm-content,
+.ink-editor .cm-scroller,
+.ink-editor .cm-content * {
+    font-family: var(--font-monospace) !important;
+}
+
+/* Suppress markdown code/codeblock styling — Ink doesn't use backticks,
+   and indented narrative text must not look like a code block */
+.ink-editor .cm-inline-code {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    color: inherit !important;
+    font-size: inherit !important;
+}
+.ink-editor .HyperMD-codeblock,
+.ink-editor .HyperMD-codeblock-bg {
+    background: transparent !important;
 }

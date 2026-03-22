@@ -1,13 +1,16 @@
 import { EditorView } from "@codemirror/view";
 
 export type ScrollPosition = "top" | "quarter" | "center";
+export type EditorTheme = "normal" | "focus";
 
 export interface InkSettings {
   scrollPosition: ScrollPosition;
+  editorTheme: EditorTheme;
 }
 
 export const DEFAULT_SETTINGS: InkSettings = {
   scrollPosition: "quarter",
+  editorTheme: "normal",
 };
 
 // Mutable settings object read at runtime by navigation and outline

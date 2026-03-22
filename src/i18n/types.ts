@@ -9,6 +9,7 @@ export interface TranslationKeys {
   "cmd.insert-conditional": string;
   "cmd.wrap-logic": string;
   "cmd.toggle-outline": string;
+  "cmd.toggle-focus": string;
 
   // ── Snippet names ────────────────────────
   "snippet.knot.name": string;
