@@ -265,7 +265,7 @@ export const inkSyntax = ViewPlugin.fromClass(
     }
 
     highlightLine(text: string, from: number, builder: RangeSetBuilder<Decoration>) {
-      let tokens: InkToken[] = [];
+      const tokens: InkToken[] = [];
 
       // 1. Collect all matches
       for (const rule of RULES) {

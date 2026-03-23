@@ -81,14 +81,14 @@ export default class InkPlugin extends Plugin {
     this.registerView(VIEW_TYPE_OUTLINE, (leaf) => new InkOutlineView(leaf));
 
     this.addRibbonIcon("list-tree", t("outline.title"), () => {
-      this.toggleView();
+      void this.toggleView();
     });
 
     this.addCommand({
       id: "ink:toggle-outline",
       name: t("cmd.toggle-outline"),
       callback: () => {
-        this.toggleView();
+        void this.toggleView();
       },
     });
 
@@ -167,7 +167,7 @@ export default class InkPlugin extends Plugin {
       const rightLeaf = workspace.getRightLeaf(false);
       if (rightLeaf) {
         await rightLeaf.setViewState({ type: VIEW_TYPE_OUTLINE, active: true });
-        workspace.revealLeaf(workspace.getLeavesOfType(VIEW_TYPE_OUTLINE)[0]);
+        await workspace.revealLeaf(workspace.getLeavesOfType(VIEW_TYPE_OUTLINE)[0]);
       }
     }
   }

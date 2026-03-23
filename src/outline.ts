@@ -1,4 +1,4 @@
-import { ItemView, WorkspaceLeaf, TFile, debounce, MarkdownView, Editor, Debouncer } from "obsidian";
+import { ItemView, WorkspaceLeaf, TFile, debounce, MarkdownView, Debouncer } from "obsidian";
 import { EditorView } from "@codemirror/view";
 import { parseLine, InkLine } from "./parser";
 import { t } from "./i18n";
@@ -28,7 +28,7 @@ export class InkOutlineView extends ItemView {
   getDisplayText() { return t("outline.title"); }
   getIcon() { return "list-tree"; }
 
-  async onOpen() {
+  onOpen() {
     this.refresh();
 
     this.registerEvent(this.app.workspace.on("active-leaf-change", (leaf) => {

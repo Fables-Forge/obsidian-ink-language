@@ -124,7 +124,7 @@ export class InkSuggest extends EditorSuggest<InkSnippet> {
     el.createDiv({ cls: "ink-snippet-desc", text: t(snippet.descKey) });
   }
 
-  selectSuggestion(snippet: InkSnippet, evt: MouseEvent | KeyboardEvent): void {
+  selectSuggestion(snippet: InkSnippet, _evt: MouseEvent | KeyboardEvent): void {
     if (!this.context) return;
 
     const { editor, start, end } = this.context;

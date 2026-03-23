@@ -1,13 +1,14 @@
 {
   "name": "obsidian-ink-language",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Syntax highlighting, slash commands, and outline panel for inkle's Ink scripting language (.ink files)",
   "main": "main.js",
   "type": "module",
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "node esbuild.config.mjs production",
-    "test": "node --experimental-strip-types --test src/parser.test.ts src/navigation.logic.test.ts src/outline.test.ts src/syntax.test.ts src/snippets.test.ts"
+    "test": "node --experimental-strip-types --test src/parser.test.ts src/navigation.logic.test.ts src/outline.test.ts src/syntax.test.ts src/snippets.test.ts",
+    "lint": "eslint src/"
   },
   "keywords": [
     "obsidian",
@@ -19,13 +20,18 @@
   "author": "Fables Forge",
   "license": "MIT",
   "devDependencies": {
+    "@eslint/json": "^1.2.0",
     "@types/node": "^16.11.6",
-    "@typescript-eslint/eslint-plugin": "5.29.0",
-    "@typescript-eslint/parser": "5.29.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "@typescript-eslint/utils": "^8.57.2",
     "builtin-modules": "3.3.0",
     "esbuild": "0.17.3",
+    "eslint": "^10.1.0",
+    "eslint-plugin-obsidianmd": "^0.1.9",
     "obsidian": "latest",
     "tslib": "2.4.0",
-    "typescript": "4.7.4"
+    "typescript": "4.7.4",
+    "typescript-eslint": "^8.57.2"
   }
 }
