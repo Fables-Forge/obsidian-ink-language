@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "node esbuild.config.mjs production",
-    "test": "node --experimental-strip-types --test src/parser.test.ts src/navigation.logic.test.ts src/outline.test.ts src/syntax.test.ts src/snippets.test.ts",
     "lint": "eslint src/"
   },
   "keywords": [

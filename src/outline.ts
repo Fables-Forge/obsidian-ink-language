@@ -172,7 +172,7 @@ export class InkOutlineView extends ItemView {
       });
       if (!targetLeaf) return;
 
-      const view = (targetLeaf as WorkspaceLeaf).view as MarkdownView;
+      const view = targetLeaf.view as MarkdownView;
       this.app.workspace.setActiveLeaf(targetLeaf, { focus: true });
       view.editor.setCursor({ line: node.line, ch: 0 });
 
