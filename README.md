@@ -4,6 +4,8 @@ An editor plugin for [inkle's Ink](https://www.inklestudios.com/ink/) scripting 
 
 ---
 
+<img width="2878" height="1713" alt="image" src="https://github.com/user-attachments/assets/79764528-8aca-408d-9026-a9e282b79c09" />
+
 ## Overview
 
 An Obsidian community plugin that brings first-class support for **inkle's Ink scripting language** (`.ink` files) into Obsidian. The goal is to give narrative designers and writers a comfortable authoring experience without leaving Obsidian — syntax highlighting, Ctrl+Click navigation, slash-command snippet insertion, command palette actions, a structural outline panel, and configurable editor themes. You can also include Obsidian links in your Ink comments - something that's not possible with the official editor.
