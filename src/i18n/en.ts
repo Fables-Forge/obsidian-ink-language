@@ -1,16 +1,16 @@
 import type { TranslationKeys } from "./types.ts";
 
 export const en: TranslationKeys = {
-  "cmd.insert-knot":          "Ink: Insert knot",
-  "cmd.insert-stitch":        "Ink: Insert stitch",
-  "cmd.insert-choice":        "Ink: Insert choice",
-  "cmd.insert-sticky-choice": "Ink: Insert sticky choice",
-  "cmd.insert-divert":        "Ink: Insert divert",
-  "cmd.insert-var":           "Ink: Insert variable",
-  "cmd.insert-conditional":   "Ink: Insert conditional",
-  "cmd.wrap-logic":           "Ink: Wrap in logic braces",
-  "cmd.toggle-outline":       "Ink: Toggle outline",
-  "cmd.toggle-focus":         "Ink: Toggle focus mode",
+  "cmd.insert-knot":          "Insert knot",
+  "cmd.insert-stitch":        "Insert stitch",
+  "cmd.insert-choice":        "Insert choice",
+  "cmd.insert-sticky-choice": "Insert sticky choice",
+  "cmd.insert-divert":        "Insert divert",
+  "cmd.insert-var":           "Insert variable",
+  "cmd.insert-conditional":   "Insert conditional",
+  "cmd.wrap-logic":           "Wrap in logic braces",
+  "cmd.toggle-outline":       "Toggle outline",
+  "cmd.toggle-focus":         "Toggle focus mode",
 
   "snippet.knot.name":              "Knot",
   "snippet.knot.desc":              "New story section (=== name ===)",

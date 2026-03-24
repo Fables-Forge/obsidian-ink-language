@@ -1,16 +1,16 @@
 import type { TranslationKeys } from "./types.ts";
 
 export const pl: TranslationKeys = {
-  "cmd.insert-knot":          "Ink: Dodaj węzeł",
-  "cmd.insert-stitch":        "Ink: Dodaj ścieg",
-  "cmd.insert-choice":        "Ink: Dodaj wybór",
-  "cmd.insert-sticky-choice": "Ink: Dodaj stały wybór",
-  "cmd.insert-divert":        "Ink: Dodaj przekierowanie",
-  "cmd.insert-var":           "Ink: Dodaj zmienną",
-  "cmd.insert-conditional":   "Ink: Dodaj warunek",
-  "cmd.wrap-logic":           "Ink: Otocz klamrami logiki",
-  "cmd.toggle-outline":       "Ink: Przełącz zarys",
-  "cmd.toggle-focus":         "Ink: Przełącz tryb skupienia",
+  "cmd.insert-knot":          "Dodaj węzeł",
+  "cmd.insert-stitch":        "Dodaj ścieg",
+  "cmd.insert-choice":        "Dodaj wybór",
+  "cmd.insert-sticky-choice": "Dodaj stały wybór",
+  "cmd.insert-divert":        "Dodaj przekierowanie",
+  "cmd.insert-var":           "Dodaj zmienną",
+  "cmd.insert-conditional":   "Dodaj warunek",
+  "cmd.wrap-logic":           "Otocz klamrami logiki",
+  "cmd.toggle-outline":       "Przełącz zarys",
+  "cmd.toggle-focus":         "Przełącz tryb skupienia",
 
   "snippet.knot.name":              "Węzeł",
   "snippet.knot.desc":              "Nowa sekcja fabuły (=== nazwa ===)",
