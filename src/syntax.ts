@@ -6,6 +6,7 @@ import {
   ViewUpdate,
 } from "@codemirror/view";
 import { RangeSetBuilder } from "@codemirror/state";
+import { editorInfoField } from "obsidian";
 
 // Match definition
 export interface InkToken {
@@ -26,57 +27,48 @@ export interface InkToken {
 export const RULES: { regex: RegExp; handler: (match: RegExpExecArray, from: number) => InkToken[] }[] = [
   // Knot header: === name ===
   {
-    regex: /^\s*(={2,}\s*)(\w+)(\s*={0,}\s*$)/,
+    regex: /^\s*(={2,}\s*)([\p{L}\p{N}_]+)(\s*={0,}\s*$)/u,
     handler: (m, from) => {
         const start = from + m.index;
-        // m[1] = marker (pre)
-        // m[2] = name
-        // m[3] = marker (post)
-        const t1 = { from: start + m[0].indexOf(m[1]), to: start + m[0].indexOf(m[1]) + m[1].length, className: "ink-knot-marker", priority: 0 };
-        const t2 = { from: start + m[0].indexOf(m[2]), to: start + m[0].indexOf(m[2]) + m[2].length, className: "ink-knot-name", priority: 1 };
-        // post marker might be empty or whitespace
-        const t3 = { from: start + m[0].lastIndexOf(m[3]), to: start + m[0].lastIndexOf(m[3]) + m[3].length, className: "ink-knot-marker", priority: 0 };
+        // Accumulate offsets left-to-right: \s* + m[1] + m[2] + m[3]
+        const m1Off = m[0].length - m[1].length - m[2].length - m[3].length;
+        const m2Off = m1Off + m[1].length;
+        const m3Off = m2Off + m[2].length;
+        const t1 = { from: start + m1Off, to: start + m1Off + m[1].length, className: "ink-knot-marker", priority: 0 };
+        const t2 = { from: start + m2Off, to: start + m2Off + m[2].length, className: "ink-knot-name", priority: 1 };
+        const t3 = { from: start + m3Off, to: start + m3Off + m[3].length, className: "ink-knot-marker", priority: 0 };
         return [t1, t2, t3].filter(t => t.to > t.from);
     }
   },
   // Knot w/ function: === function name(params) ===
   {
-    regex: /^\s*={2,}\s*(function\s+)(\w+)(\(.*\))?/,
+    regex: /^\s*={2,}\s*(function\s+)([\p{L}\p{N}_]+)(\(.*\))?/u,
     handler: (m, from) => {
         const start = from + m.index;
-        // Using indexOf is risky if text repeats, but for strict structure it's okay-ish.
-        // Better to accumulate lengths.
-        // Full match m[0].
-        // m[1] "function "
-        // m[2] name
-        // m[3] params
-        let pos = start + m[0].indexOf(m[1]);
+        // Accumulate offsets left-to-right: \s*={2,}\s* + m[1] + m[2] + m[3]?
+        const m1Off = m[0].length - m[1].length - m[2].length - (m[3]?.length ?? 0);
+        const m2Off = m1Off + m[1].length;
         const tokens: InkToken[] = [];
-        tokens.push({ from: pos, to: pos + m[1].length, className: "ink-keyword", priority: 1 });
-
-        pos = start + m[0].indexOf(m[2], m[0].indexOf(m[1]) + m[1].length);
-        tokens.push({ from: pos, to: pos + m[2].length, className: "ink-fn-name", priority: 1 });
-
+        tokens.push({ from: start + m1Off, to: start + m1Off + m[1].length, className: "ink-keyword", priority: 1 });
+        tokens.push({ from: start + m2Off, to: start + m2Off + m[2].length, className: "ink-fn-name", priority: 1 });
         if (m[3]) {
-            pos = start + m[0].indexOf(m[3], m[0].indexOf(m[2]) + m[2].length);
-            tokens.push({ from: pos, to: pos + m[3].length, className: "ink-params", priority: 0 });
+            const m3Off = m2Off + m[2].length;
+            tokens.push({ from: start + m3Off, to: start + m3Off + m[3].length, className: "ink-params", priority: 0 });
         }
         return tokens;
     }
   },
   // Stitch: = name
   {
-    regex: /^\s*(=\s+)(\w+)/,
+    regex: /^\s*(=\s+)([\p{L}\p{N}_]+)/u,
     handler: (m, from) => {
         const start = from + m.index;
-        // m[1] "= "
-        // m[2] name
-        let pos = start + m[0].indexOf(m[1]);
+        // Accumulate offsets left-to-right: \s* + m[1] + m[2]
+        const m1Off = m[0].length - m[1].length - m[2].length;
+        const m2Off = m1Off + m[1].length;
         const tokens: InkToken[] = [];
-        tokens.push({ from: pos, to: pos + m[1].length, className: "ink-stitch-marker", priority: 0 });
-
-        pos = start + m[0].indexOf(m[2], m[0].indexOf(m[1]));
-        tokens.push({ from: pos, to: pos + m[2].length, className: "ink-stitch-name", priority: 1 });
+        tokens.push({ from: start + m1Off, to: start + m1Off + m[1].length, className: "ink-stitch-marker", priority: 0 });
+        tokens.push({ from: start + m2Off, to: start + m2Off + m[2].length, className: "ink-stitch-name", priority: 1 });
         return tokens;
     }
   },
@@ -90,7 +82,7 @@ export const RULES: { regex: RegExp; handler: (match: RegExpExecArray, from: num
   },
   // Choice label: (label)
   {
-    regex: /\((\w+)\)/g, // Global because multiple or anywhere? Usually after bullet.
+    regex: /\(([\p{L}\p{N}_]+)\)/gu, // Global because multiple or anywhere? Usually after bullet.
     handler: (m, from) => {
         const start = from + m.index;
         return [{ from: start, to: start + m[0].length, className: "ink-label", priority: 1 }];
@@ -160,28 +152,29 @@ export const RULES: { regex: RegExp; handler: (match: RegExpExecArray, from: num
   {
     regex: /^\s*(VAR|CONST|TEMP|INCLUDE|EXTERNAL|LIST)\b/g, // anchored to start usually
     handler: (m, from) => {
-         const start = from + m.index + m[0].indexOf(m[1]);
+         const start = from + m.index + m[0].length - m[1].length;
          return [{ from: start, to: start + m[1].length, className: "ink-keyword", priority: 1 }];
     }
   },
   // Variable name (declaration)
   {
-    regex: /(VAR|CONST|TEMP)\s+(\w+)/g,
+    regex: /(VAR|CONST|TEMP)\s+([\p{L}\p{N}_]+)/gu,
     handler: (m, from) => {
          // m[1] keyword (already handled above? or here? Above rule is anchored. This one finds name.)
          // The above rule is `^\s*...`. This rule matches `VAR name`.
          // Overlap: `VAR` matched by both.
          // We only want `name` here.
          const start = from + m.index;
-         const kwLen = m[0].indexOf(m[2]);
-         return [{ from: start + kwLen, to: start + kwLen + m[2].length, className: "ink-variable", priority: 1 }];
+         // m[2] is always at the end of the match: (VAR|CONST|TEMP)\s+(\w+)
+         const m2Off = m[0].length - m[2].length;
+         return [{ from: start + m2Off, to: start + m[0].length, className: "ink-variable", priority: 1 }];
     }
   },
   // Tilde
   {
     regex: /^\s*(~)/,
     handler: (m, from) => {
-        const start = from + m.index + m[0].indexOf(m[1]);
+        const start = from + m.index + m[0].length - m[1].length;
         return [{ from: start, to: start + m[1].length, className: "ink-tilde", priority: 0 }];
     }
   },
@@ -219,7 +212,7 @@ export const RULES: { regex: RegExp; handler: (match: RegExpExecArray, from: num
   {
     regex: /INCLUDE\s+([^\n]+)/g,
     handler: (m, from) => {
-        const start = from + m.index + m[0].indexOf(m[1]);
+        const start = from + m.index + m[0].length - m[1].length;
         return [{ from: start, to: start + m[1].length, className: "ink-include-path", priority: 1 }];
     }
   }
@@ -240,14 +233,9 @@ export const inkSyntax = ViewPlugin.fromClass(
     }
 
     buildDecorations(view: EditorView): DecorationSet {
-      // 1. Check file extension
-      // In Obsidian, we might check view.state or workspace.
-      // ViewPlugin is generic — file-extension scoping is handled by main.ts
-      // which registers this extension only for the markdown editor (ink files
-      // are registered as markdown via registerExtensions). The editorAttributes
-      // extension adds the `ink-editor` class only when editorInfoField confirms
-      // the file has a .ink extension, so highlighting runs for all editors but
-      // only produces visible classes on .ink files.
+      if (view.state.field(editorInfoField, false)?.file?.extension !== "ink") {
+        return Decoration.none;
+      }
 
       const builder = new RangeSetBuilder<Decoration>();
       const visibleRanges = view.visibleRanges;

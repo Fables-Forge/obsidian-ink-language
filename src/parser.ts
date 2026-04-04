@@ -21,7 +21,7 @@ export function parseLine(text: string, lineNumber: number): InkLine {
     }
 
     // Knot w/ function: ^\s*={2,}\s*(function\s+)(\w+)
-    const fnMatch = text.match(/^\s*={2,}\s*(function\s+)(\w+)/);
+    const fnMatch = text.match(/^\s*={2,}\s*(function\s+)([\p{L}\p{N}_]+)/u);
     if (fnMatch) {
         result.type = "function";
         result.name = fnMatch[2];
@@ -29,7 +29,7 @@ export function parseLine(text: string, lineNumber: number): InkLine {
     }
 
     // Knot: ^\s*(={2,}\s*)(\w+)
-    const knotMatch = text.match(/^\s*(={2,}\s*)(\w+)/);
+    const knotMatch = text.match(/^\s*(={2,}\s*)([\p{L}\p{N}_]+)/u);
     if (knotMatch) {
         result.type = "knot";
         result.name = knotMatch[2];
@@ -37,7 +37,7 @@ export function parseLine(text: string, lineNumber: number): InkLine {
     }
 
     // Stitch: ^\s*(=\s+)(\w+)
-    const stitchMatch = text.match(/^\s*(=\s+)(\w+)/);
+    const stitchMatch = text.match(/^\s*(=\s+)([\p{L}\p{N}_]+)/u);
     if (stitchMatch) {
         result.type = "stitch";
         result.name = stitchMatch[2];
@@ -45,7 +45,7 @@ export function parseLine(text: string, lineNumber: number): InkLine {
     }
 
     // External: ^\s*EXTERNAL\s+(\w+)
-    const extMatch = text.match(/^\s*EXTERNAL\s+(\w+)/);
+    const extMatch = text.match(/^\s*EXTERNAL\s+([\p{L}\p{N}_]+)/u);
     if (extMatch) {
         result.type = "external";
         result.name = extMatch[1];
@@ -59,13 +59,13 @@ export function parseLine(text: string, lineNumber: number): InkLine {
     }
 
     // Var/Const/Temp/List
-    const varMatch = text.match(/^\s*VAR\s+(\w+)/);
+    const varMatch = text.match(/^\s*VAR\s+([\p{L}\p{N}_]+)/u);
     if (varMatch) { result.type = "var"; result.name = varMatch[1]; return result; }
-    const constMatch = text.match(/^\s*CONST\s+(\w+)/);
+    const constMatch = text.match(/^\s*CONST\s+([\p{L}\p{N}_]+)/u);
     if (constMatch) { result.type = "const"; result.name = constMatch[1]; return result; }
-    const tempMatch = text.match(/^\s*TEMP\s+(\w+)/);
+    const tempMatch = text.match(/^\s*TEMP\s+([\p{L}\p{N}_]+)/u);
     if (tempMatch) { result.type = "temp"; result.name = tempMatch[1]; return result; }
-    const listMatch = text.match(/^\s*LIST\s+(\w+)/);
+    const listMatch = text.match(/^\s*LIST\s+([\p{L}\p{N}_]+)/u);
     if (listMatch) { result.type = "var"; result.name = listMatch[1]; return result; } // loosely mapping LIST to var for this purpose
 
     // Choice
@@ -75,7 +75,7 @@ export function parseLine(text: string, lineNumber: number): InkLine {
     }
 
     // Named gather / label: - (name) or -- (name) or - - (name)
-    const labelMatch = text.match(/^\s*(-\s*)+\((\w+)\)/);
+    const labelMatch = text.match(/^\s*(-\s*)+\(([\p{L}\p{N}_]+)\)/u);
     if (labelMatch) {
         result.type = "gather";
         result.name = labelMatch[2];
