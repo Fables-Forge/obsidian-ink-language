@@ -44,10 +44,6 @@ export class InkOutlineView extends ItemView {
     }));
   }
 
-  onClose(): void {
-    // Nothing to clean up manually
-  }
-
   refresh() {
     const view = this.app.workspace.getActiveViewOfType(MarkdownView);
     if (!view || view.file?.extension !== "ink") {

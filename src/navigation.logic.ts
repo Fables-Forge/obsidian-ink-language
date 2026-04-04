@@ -1,4 +1,4 @@
-import { parseLine } from "./parser.ts";
+import { parseLine } from "./parser.ts"; // .ts extension required for Node --experimental-strip-types test runner
 
 /**
  * Given all document lines, find the 0-indexed line number of the definition

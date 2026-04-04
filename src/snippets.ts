@@ -88,7 +88,7 @@ export class InkSuggest extends EditorSuggest<InkSnippet> {
 
     if (match) {
       return {
-        start: { line: cursor.line, ch: match.index + match[1].length }, // position of '/'
+        start: { line: cursor.line, ch: (match.index ?? 0) + match[1].length }, // position of '/'
         end: cursor,
         query: match[3], // text after '/'
       };

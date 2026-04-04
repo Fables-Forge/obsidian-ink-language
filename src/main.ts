@@ -201,9 +201,6 @@ export default class InkPlugin extends Plugin {
     });
   }
 
-  onunload() {
-    // Obsidian automatically unloads views and extensions
-  }
 }
 
 class InkSettingTab extends PluginSettingTab {
