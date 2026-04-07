@@ -97,4 +97,12 @@ export const pl: TranslationKeys = {
   "outline.functions": "Funkcje",
   "outline.externals": "Zewnętrzne",
   "outline.empty":     "Brak węzłów. Otwórz plik .ink.",
+
+  "cmd.new-file":          "Nowy plik Ink",
+  "newfile.modal-title":   "Nowy plik Ink",
+  "newfile.placeholder":   "nazwa pliku (bez .ink)",
+  "newfile.btn-create":    "Utwórz",
+  "newfile.error-empty":   "Nazwa pliku nie może być pusta.",
+  "newfile.error-exists":  "Plik o tej nazwie już istnieje.",
+  "newfile.context-menu":  "Nowy plik Ink",
 };

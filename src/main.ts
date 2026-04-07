@@ -6,6 +6,9 @@ import {
   PluginSettingTab,
   Setting,
   App,
+  TFolder,
+  TFile,
+  normalizePath,
   editorInfoField,
 } from "obsidian";
 import { InkSettings, DEFAULT_SETTINGS, applySettings, currentSettings, EditorTheme } from "./settings";
@@ -16,6 +19,7 @@ import { inkNavigation } from "./navigation";
 import { InkSuggest } from "./snippets";
 import { InkOutlineView, VIEW_TYPE_OUTLINE } from "./outline";
 import { initLocale, t } from "./i18n";
+import { NewInkFileModal } from "./new-file-modal";
 
 // StateEffect + StateField so the theme class is part of CM state,
 // not a manual DOM change that gets overwritten on next state update.
@@ -102,6 +106,16 @@ export default class InkPlugin extends Plugin {
       },
     });
 
+    this.addCommand({
+      id: "ink:new-file",
+      name: t("cmd.new-file"),
+      callback: () => {
+        const activeFile = this.app.workspace.getActiveFile();
+        const folder = this.app.fileManager.getNewFileParent(activeFile?.path ?? "");
+        this.createInkFile(folder);
+      },
+    });
+
     // 4. Commands
     this.addCommand({
       id: "ink:insert-knot",
@@ -155,6 +169,18 @@ export default class InkPlugin extends Plugin {
         }
       },
     });
+
+    this.registerEvent(
+      this.app.workspace.on("file-menu", (menu, abstractFile) => {
+        if (!(abstractFile instanceof TFolder)) return;
+        menu.addItem((item) => {
+          item
+            .setTitle(t("newfile.context-menu"))
+            .setIcon("file-plus")
+            .onClick(() => this.createInkFile(abstractFile));
+        });
+      })
+    );
   }
 
   async toggleView() {
@@ -170,6 +196,15 @@ export default class InkPlugin extends Plugin {
         await workspace.revealLeaf(workspace.getLeavesOfType(VIEW_TYPE_OUTLINE)[0]);
       }
     }
+  }
+
+  private createInkFile(folder: TFolder): void {
+    new NewInkFileModal(this.app, folder, (filePath) => {
+      const file = this.app.vault.getAbstractFileByPath(filePath);
+      if (file instanceof TFile) {
+        void this.app.workspace.getLeaf(false).openFile(file);
+      }
+    }).open();
   }
 
   insertText(

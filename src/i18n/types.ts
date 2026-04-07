@@ -99,4 +99,13 @@ export interface TranslationKeys {
   "outline.functions": string;
   "outline.externals": string;
   "outline.empty": string;
+
+  // ── New file dialog ──────────────────────
+  "cmd.new-file": string;
+  "newfile.modal-title": string;
+  "newfile.placeholder": string;
+  "newfile.btn-create": string;
+  "newfile.error-empty": string;
+  "newfile.error-exists": string;
+  "newfile.context-menu": string;
 }
