@@ -97,4 +97,12 @@ export const en: TranslationKeys = {
   "outline.functions": "Functions",
   "outline.externals": "Externals",
   "outline.empty":     "No knots found. Open an .ink file.",
+
+  "cmd.new-file":          "New Ink file",
+  "newfile.modal-title":   "New Ink file",
+  "newfile.placeholder":   "filename (without .ink)",
+  "newfile.btn-create":    "Create",
+  "newfile.error-empty":   "Filename cannot be empty.",
+  "newfile.error-exists":  "A file with that name already exists.",
+  "newfile.context-menu":  "New Ink file",
 };
